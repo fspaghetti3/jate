@@ -14,26 +14,37 @@ const initdb = async () =>
 
 // TODO: Add logic to a method that accepts some content and adds it to the database
 export const putDb = async (content) => {
+  try {
 
-    const editorDb = await openDB('JATE', 1);
-    const transfer = editorDb.transaction('JATE', 'readwrite')
-    const store = transfer.objectStore('JATE')
-    const req = store.put({ id: 1, value: content})
-    const result = await req;
+    const editorDb = await openDB('jate', 1);
+    const transfer = editorDb.transaction('jate', 'readwrite')
+    const store = transfer.objectStore('jate')
+    const req = store.put({ value: content })
+    await req;
 
-    console.error('Saved to Database', result.value );
+    console.error('Saved to Database', content );
+   } catch (error) {
+    console.error('Could not save to database', error)
+
+    }
 
 }
 
 // TODO: Add logic for a method that gets all the content from the database
 export const getDb = async () => {
+  try {
 
-    const editorDb = await openDB('JATE', 1);
-    const transfer = editorDb.transaction('JATE', 'readwrite')
-    const store = transfer.objectStore('JATE')
-    const req = store.put({ id: 1, value: content})
+    const editorDb = await openDB('jate', 1);
+    const transfer = editorDb.transaction('jate', 'readonly')
+    const store = transfer.objectStore('jate')
+    const req = store.getAll()
     const result = await req;
-    result ? console.log('Data retrieved from Database!', result.value) : console.log('Data not found.', result.value)
+    console.log('Data retrieved from Database!', result);
+    return result?.value;
+  } catch (error) {
+    console.error('Could not fetch Database', error)
+  }
+
 
 }
 
