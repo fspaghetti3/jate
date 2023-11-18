@@ -1,6 +1,5 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const WebpackPwaManifest = require('webpack-pwa-manifest');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
 const { GenerateSW } = require('workbox-webpack-plugin');
 
@@ -24,7 +23,7 @@ module.exports = () => {
         title: 'JATE',
       }),
       new GenerateSW({
-        swDest: 'service-worker.js',
+        swDest: 'src-sw.js',
         clientsClaim: true,
         skipWaiting: true,
       }),
@@ -33,23 +32,23 @@ module.exports = () => {
         name: "Just Another Text Editor",
         short_name: "JATE",
         description: "It's Just Another Text Editor!",
-        background_color: '#ffffff',
+        background_color: '#225ca3',
         crossorigin: 'use-credentials',
         icons: [
           {
-            src: path.resolve(''),
+            src: path.resolve('./src/images/jate.png'),
             sizes: [96, 128, 192, 256, 384, 512],
+            destination: path.join('assets', 'icons')
           },
         ],
       }),
-      new MiniCssExtractPlugin(),
     ],
 
     module: {
       rules: [
         {
           test: /\.css$/i,
-          use: [MiniCssExtractPlugin.loader, 'css-loader'],
+          use: ['style-loader', 'css-loader'],
         },
         {
           test: /\.js$/,
