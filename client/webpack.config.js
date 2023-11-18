@@ -16,6 +16,7 @@ module.exports = () => {
     output: {
       filename: '[name].bundle.js',
       path: path.resolve(__dirname, 'dist'),
+      publicPath: '/',
     },
     plugins: [
       new HtmlWebpackPlugin({
@@ -33,9 +34,10 @@ module.exports = () => {
         short_name: "JATE",
         description: "It's Just Another Text Editor!",
         background_color: '#225ca3',
+        theme_color: '#225ca3',
         crossorigin: 'use-credentials',
         icons: [
-          {
+          {            
             src: path.resolve('./src/images/logo.png'),
             sizes: [96, 128, 192, 256, 384, 512],
             destination: path.join('assets', 'icons')

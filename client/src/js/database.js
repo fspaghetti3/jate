@@ -22,7 +22,7 @@ export const putDb = async (content) => {
     const req = store.put({ value: content })
     await req;
 
-    console.error('Saved to Database', content );
+    console.log('Saved to Database:', content );
    } catch (error) {
     console.error('Could not save to database', error)
 
